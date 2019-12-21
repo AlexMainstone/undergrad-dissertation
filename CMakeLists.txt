@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.0)
 project(dissertation-project)
 
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 17)
 
 # Header files
 list(APPEND HEADERS
     "${CMAKE_SOURCE_DIR}/include/Scenes/Game.hpp"
     "${CMAKE_SOURCE_DIR}/include/World/Map.hpp"
+    "${CMAKE_SOURCE_DIR}/include/World/City.hpp"
+    "${CMAKE_SOURCE_DIR}/include/World/MapGenerator.hpp"
     )
 
 # Source Files
@@ -15,6 +17,8 @@ list(APPEND SOURCES
 
     "${CMAKE_SOURCE_DIR}/src/Scenes/Game.cpp"
     "${CMAKE_SOURCE_DIR}/src/World/Map.cpp"
+    "${CMAKE_SOURCE_DIR}/src/World/City.cpp"
+    "${CMAKE_SOURCE_DIR}/src/World/MapGenerator.cpp"
     )
 
 # Include Directories
@@ -32,7 +36,7 @@ source_group("Sources" FILES ${SOURCES})
 
 if (WIN32)
     #set(SFML_STATIC_LIBRARIES TRUE)
-    set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML-2.5.1/build")
+    set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML-master/build")
 endif(WIN32)
 
 find_package(SFML 2 COMPONENTS graphics network audio REQUIRED)

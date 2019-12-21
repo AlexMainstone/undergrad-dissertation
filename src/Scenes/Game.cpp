@@ -5,8 +5,8 @@
 Game::Game(sf::RenderWindow &window) : window(window)
 {
     // Create map
-    map = new Map();
-    map->generate(time(0));
+    MapGenerator *mgen = new MapGenerator();
+    map = mgen->generate();
 }
 
 void Game::handleEvent(sf::Event &e)

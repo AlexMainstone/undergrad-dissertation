@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "World/Map.hpp"
+#include "World/MapGenerator.hpp"
 
 class Game
 {

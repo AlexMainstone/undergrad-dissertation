@@ -1,26 +1,20 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "VoronoiDiagramGenerator.h"
-#include "PerlinNoise.hpp"
+#include<SFML/Graphics.hpp>
+#include "World/City.hpp"
 
 class Map
 {
 public:
-    void generate(unsigned int seed = 0, sf::Vector2f size = sf::Vector2f(1281, 721), unsigned int nodes = 10000);
+    Map(sf::Texture texture);
 
-    void updateMap();
+    void addCity(sf::Vector2f pos, const char *name, unsigned int power);
 
     void draw(sf::RenderWindow &window);
 
 private:
-    sf::RenderTexture render_texture;
+    sf::Texture texture;
     sf::Sprite sprite;
 
-    sf::Vector2f size;
-
-    Diagram *diagram;
-    VoronoiDiagramGenerator vge;
-    
-    const siv::PerlinNoise *perlin;
+    std::vector<City> cities;
 };
