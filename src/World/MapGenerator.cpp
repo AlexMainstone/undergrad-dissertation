@@ -1,11 +1,11 @@
 #include "World/MapGenerator.hpp"
 
-MapGenerator::MapGenerator() 
+MapGenerator::MapGenerator()
 {
     vge = VoronoiDiagramGenerator();
 }
 
-Map *MapGenerator::generate(unsigned int seed, sf::Vector2f size, unsigned int nodes) 
+Map *MapGenerator::generate(unsigned int seed, sf::Vector2f size, unsigned int nodes)
 {
     srand(seed);
 
@@ -24,16 +24,37 @@ Map *MapGenerator::generate(unsigned int seed, sf::Vector2f size, unsigned int n
     vge.compute(sites, BoundingBox(0, size.x, size.y, -1));
     Diagram *diagram = vge.relax();
 
+    // Initialize Map properties
+    auto mapprop = initCellProperties(diagram);
+
+    // Erode
+
     // Generate Texture
-    sf::Texture map_texture = generateTexture(diagram, size);
-    Map *map = new Map(map_texture);
+    sf::Texture map_texture = generateTexture(diagram, mapprop, size);
+    Map *map = new Map(map_texture, generateConvexShapes(mapprop, diagram));
 
     // Add Cities
 
     return map;
 }
 
-sf::Texture MapGenerator::generateTexture(Diagram *diagram, sf::Vector2f size) 
+std::map<Cell*, MapCell*> MapGenerator::initCellProperties(Diagram *diagram)
+{
+    std::map<Cell*, MapCell*> cells;
+
+    for (auto c : diagram->cells)
+    {
+        if(c->site.p.x < 700) {
+            cells[c] = new MapCell(1);
+        } else {
+            cells[c] = new MapCell(0);
+        }
+    }
+
+    return cells;
+}
+
+sf::Texture MapGenerator::generateTexture(Diagram *diagram, std::map<Cell*, MapCell*> mapprop, sf::Vector2f size)
 {
     sf::RenderTexture render_texture;
     render_texture.create(size.x, size.y);
@@ -42,7 +63,11 @@ sf::Texture MapGenerator::generateTexture(Diagram *diagram, sf::Vector2f size)
     {
         auto pos = c->site.p;
         sf::Color col(sf::Color::White);
-        col = sf::Color(rand()%255, rand()%255, rand()%255);
+        if(mapprop[c]->altitude == 0) {
+            col = sf::Color::Black;
+        } else {
+            col = sf::Color::White;
+        }
         sf::ConvexShape shape;
         shape.setPointCount(c->halfEdges.size() * 2);
 
@@ -57,4 +82,31 @@ sf::Texture MapGenerator::generateTexture(Diagram *diagram, sf::Vector2f size)
 
     render_texture.display();
     return render_texture.getTexture();
+}
+
+sf::VertexArray MapGenerator::generateConvexShapes(std::map<Cell*, MapCell*> mapprop, Diagram *diagram)
+{
+    std::vector<sf::Vector2f> templines;
+
+    std::cout<<"YO" << std::endl;
+    for (auto c : diagram->cells)
+    {
+        for(auto e : c->halfEdges) {
+            if(e->edge->lSite == nullptr || e->edge->rSite == nullptr) {
+                continue;
+            }
+            if(mapprop[e->edge->lSite->cell]->altitude != mapprop[e->edge->rSite->cell]->altitude) {
+                // Add line
+                templines.push_back(sf::Vector2f(e->edge->vertA->x, e->edge->vertA->y));
+                templines.push_back(sf::Vector2f(e->edge->vertB->x, e->edge->vertB->y));
+            }
+        }
+    }
+
+    sf::VertexArray lines(sf::Lines, templines.size());
+    for(int i = 0; i < templines.size(); i++) {
+        lines[i].position = templines[i];
+        lines[i].color = sf::Color::Black;
+    }
+    return lines;
 }

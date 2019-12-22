@@ -32,7 +32,7 @@ int main()
         game->update(dt.restart().asSeconds());
 
         // Render
-        window.clear();
+        window.clear(sf::Color::White);
 
         // Render scene
         game->render();
