@@ -88,7 +88,6 @@ sf::VertexArray MapGenerator::generateConvexShapes(std::map<Cell*, MapCell*> map
 {
     std::vector<sf::Vector2f> templines;
 
-    std::cout<<"YO" << std::endl;
     for (auto c : diagram->cells)
     {
         for(auto e : c->halfEdges) {
