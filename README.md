@@ -16,7 +16,7 @@ Install the required libraries and compile with cmake
 
 ## References
 
-- [Blog](alexmainstone.com)
+- [Blog](http://www.alexmainstone.com)
 
 - [pcgbook](http://pcgbook.com/)
 
