@@ -14,6 +14,8 @@ Install the required libraries and compile with cmake
 
 - [PerlinNoise](https://github.com/Reputeless/PerlinNoise)
 
+- [Jezov (Simple Markov Library I created)](https://github.com/AlexMainstone/jezov-names)
+
 ## References
 
 - [Blog](http://www.alexmainstone.com)

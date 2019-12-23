@@ -7,7 +7,6 @@ set (CMAKE_CXX_STANDARD 17)
 list(APPEND HEADERS
     "${CMAKE_SOURCE_DIR}/include/Scenes/Game.hpp"
     "${CMAKE_SOURCE_DIR}/include/World/Map.hpp"
-    "${CMAKE_SOURCE_DIR}/include/World/City.hpp"
     "${CMAKE_SOURCE_DIR}/include/World/MapGenerator.hpp"
     )
 
@@ -17,7 +16,6 @@ list(APPEND SOURCES
 
     "${CMAKE_SOURCE_DIR}/src/Scenes/Game.cpp"
     "${CMAKE_SOURCE_DIR}/src/World/Map.cpp"
-    "${CMAKE_SOURCE_DIR}/src/World/City.cpp"
     "${CMAKE_SOURCE_DIR}/src/World/MapGenerator.cpp"
     )
 
@@ -26,6 +24,7 @@ list(APPEND INCLUDE_DIRS
     "${CMAKE_SOURCE_DIR}/include"
     "${CMAKE_SOURCE_DIR}/lib/Voronoi-master/include"
     "${CMAKE_SOURCE_DIR}/lib/PerlinNoise-master/"
+    "${CMAKE_SOURCE_DIR}/lib/jezov/include"
     )
 
 file(GLOB VLIB_SOURCE "${PROJECT_SOURCE_DIR}/lib/Voronoi-master/src/*.cpp" "${PROJECT_SOURCE_DIR}/lib/Voronoi-master/include/*.h")

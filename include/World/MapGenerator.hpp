@@ -6,9 +6,10 @@
 #include "World/Map.hpp"
 
 struct MapCell {
-    unsigned int altitude;
+    float altitude;
     unsigned int tile;
-    MapCell(unsigned int altitude) : altitude(altitude) {};
+    MapCell(float altitude, unsigned int tile) : altitude(altitude), tile(tile) {};
+    MapCell() : altitude(0), tile(0) {}
 };
 
 class MapGenerator
