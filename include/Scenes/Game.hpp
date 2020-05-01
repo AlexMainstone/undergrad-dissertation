@@ -16,4 +16,5 @@ public:
 private:
     sf::RenderWindow &window;
     Map *map;
+    float zoom;
 };

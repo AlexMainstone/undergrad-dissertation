@@ -38,6 +38,7 @@ if (WIN32)
     set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML-master/build")
 endif(WIN32)
 
+
 find_package(SFML 2 COMPONENTS graphics network audio REQUIRED)
 
 add_executable(dissertation-project ${SOURCES} ${HEADERS})
