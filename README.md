@@ -1,6 +1,8 @@
 # Dissertation Project
 
-A project I wrote for my dissertation
+Fantasy map generator that generates maps on Voronoi diagrams using Perlin Noise and Markov chains.
+
+Read my dissertation [here](https://github.com/AlexMainstone/dissertation-project/blob/master/Fantasy%20Maps%20with%20Voronoi%20Diagrams.pdf).
 
 ## Installation
 
